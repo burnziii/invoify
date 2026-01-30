@@ -1,5 +1,5 @@
 // Variables
-import { EXPORT_INVOICE_API } from "@/lib/variables";
+import { EXPORT_INVOICE_API, ZUGFERD_PDF_API } from "@/lib/variables";
 
 // Types
 import { ExportTypes, InvoiceType } from "@/types";
@@ -16,7 +16,16 @@ export const exportInvoice = async (
     exportAs: ExportTypes,
     formValues: InvoiceType
 ) => {
-    return fetch(`${EXPORT_INVOICE_API}?format=${exportAs}`, {
+    // Use different endpoint for ZUGFeRD PDF
+    const isZugferd = exportAs === ExportTypes.ZUGFERD;
+    const apiUrl = isZugferd
+        ? `${ZUGFERD_PDF_API}?profile=BASIC`
+        : `${EXPORT_INVOICE_API}?format=${exportAs}`;
+    const fileName = isZugferd
+        ? `zugferd-${formValues.details.invoiceNumber || "invoice"}.pdf`
+        : `invoice.${exportAs.toLowerCase()}`;
+
+    return fetch(apiUrl, {
         method: "POST",
         body: JSON.stringify(formValues),
         headers: {
@@ -28,7 +37,7 @@ export const exportInvoice = async (
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = `invoice.${exportAs.toLowerCase()}`;
+            a.download = fileName;
             a.click();
             window.URL.revokeObjectURL(url);
         })

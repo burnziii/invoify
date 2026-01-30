@@ -5,6 +5,7 @@ import chromium from "@sparticuz/chromium";
 
 // Helpers
 import { getInvoiceTemplate } from "@/lib/helpers";
+import { generateEpcQrCodeBase64, canGenerateEpcQrCode } from "@/lib/epcQrCode";
 
 // Variables
 import { ENV, TAILWIND_CDN } from "@/lib/variables";
@@ -26,11 +27,37 @@ export async function generatePdfService(req: NextRequest) {
     let page;
 
     try {
+        // Generate EPC-QR-Code if enabled and IBAN is available
+        let epcQrCodeDataUrl: string | undefined;
+        if (
+            body.details.showEpcQrCode &&
+            body.details.paymentInformation?.iban &&
+            canGenerateEpcQrCode(body.details.paymentInformation.iban, body.details.currency)
+        ) {
+            try {
+                epcQrCodeDataUrl = await generateEpcQrCodeBase64({
+                    name: body.sender.name,
+                    iban: body.details.paymentInformation.iban,
+                    bic: body.details.paymentInformation.bic,
+                    amount: body.details.totalAmount,
+                    reference: body.details.invoiceNumber,
+                }, { size: 150 });
+            } catch (qrError) {
+                console.error("EPC-QR-Code generation failed:", qrError);
+            }
+        }
+
+        // Add EPC-QR-Code to invoice data for template rendering
+        const invoiceWithQr = {
+            ...body,
+            epcQrCodeDataUrl,
+        };
+
         const ReactDOMServer = (await import("react-dom/server")).default;
         const templateId = body.details.pdfTemplate;
         const InvoiceTemplate = await getInvoiceTemplate(templateId);
         const htmlTemplate = ReactDOMServer.renderToStaticMarkup(
-            InvoiceTemplate(body)
+            InvoiceTemplate(invoiceWithQr as InvoiceType)
         );
 
 		if (ENV === "production") {

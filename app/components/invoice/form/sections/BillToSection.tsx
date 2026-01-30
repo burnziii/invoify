@@ -86,6 +86,16 @@ const BillToSection = () => {
                     target.value = target.value.replace(/[^\d\+\-\(\)\s]/g, "");
                 }}
             />
+            <FormInput
+                name="receiver.vatId"
+                label={_t("form.steps.fromAndTo.vatId") || "VAT ID"}
+                placeholder="e.g. DE123456789"
+            />
+            <FormInput
+                name="receiver.buyerReference"
+                label={_t("form.steps.fromAndTo.buyerReference") || "Buyer Reference (Leitweg-ID)"}
+                placeholder="e.g. 04011000-12345-67"
+            />
             {/* //? key = field.id fixes a bug where wrong field gets deleted  */}
             {fields?.map((field, index) => (
                 <FormCustomInput

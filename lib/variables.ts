@@ -19,6 +19,7 @@ export const AUTHOR_GITHUB = "https://github.com/al1abb";
 export const GENERATE_PDF_API = "/api/invoice/generate";
 export const SEND_PDF_API = "/api/invoice/send";
 export const EXPORT_INVOICE_API = "/api/invoice/export";
+export const ZUGFERD_PDF_API = "/api/invoice/zugferd";
 
 /**
  * External API endpoints
@@ -125,6 +126,7 @@ export const FORM_DEFAULT_VALUES = {
     country: "",
     email: "",
     phone: "",
+    vatId: "",
     customInputs: [],
   },
   receiver: {
@@ -135,6 +137,8 @@ export const FORM_DEFAULT_VALUES = {
     country: "",
     email: "",
     phone: "",
+    vatId: "",
+    buyerReference: "",
     customInputs: [],
   },
   details: {
@@ -170,11 +174,14 @@ export const FORM_DEFAULT_VALUES = {
       bankName: "",
       accountName: "",
       accountNumber: "",
+      iban: "",
+      bic: "",
     },
     additionalNotes: "",
     paymentTerms: "",
     totalAmountInWords: "",
     pdfTemplate: 1,
+    showEpcQrCode: false,
   },
 };
 

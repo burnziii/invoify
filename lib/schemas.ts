@@ -94,6 +94,7 @@ const InvoiceSenderSchema = z.object({
     country: fieldValidators.country,
     email: fieldValidators.email,
     phone: fieldValidators.phone,
+    vatId: fieldValidators.stringOptional,
     customInputs: z.array(CustomInputSchema).optional(),
 });
 
@@ -105,6 +106,8 @@ const InvoiceReceiverSchema = z.object({
     country: fieldValidators.country,
     email: fieldValidators.email,
     phone: fieldValidators.phone,
+    vatId: fieldValidators.stringOptional,
+    buyerReference: fieldValidators.stringOptional,
     customInputs: z.array(CustomInputSchema).optional(),
 });
 
@@ -120,6 +123,8 @@ const PaymentInformationSchema = z.object({
     bankName: fieldValidators.stringMin1,
     accountName: fieldValidators.stringMin1,
     accountNumber: fieldValidators.stringMin1,
+    iban: fieldValidators.stringOptional,
+    bic: fieldValidators.stringOptional,
 });
 
 const DiscountDetailsSchema = z.object({
@@ -164,6 +169,7 @@ const InvoiceDetailsSchema = z.object({
     signature: SignatureSchema.optional(),
     updatedAt: fieldValidators.stringOptional,
     pdfTemplate: z.number(),
+    showEpcQrCode: z.boolean().optional(),
 });
 
 const InvoiceSchema = z.object({

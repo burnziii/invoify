@@ -23,6 +23,8 @@
                 "country": "Land",
                 "email": "E-Mail",
                 "phone": "Telefon",
+                "vatId": "USt-IdNr.",
+                "buyerReference": "Leitweg-ID",
                 "addCustomInput": "Benutzerfeld hinzufügen",
                 "sender": "Sender",
                 "receiver": "Empfänger"
@@ -53,7 +55,12 @@
                 "heading": "Zahlungsinformationen",
                 "bankName": "Bank",
                 "accountName": "Kontoinhaber",
-                "accountNumber": "Kontonummer"
+                "accountNumber": "Kontonummer",
+                "iban": "IBAN",
+                "bic": "BIC",
+                "showEpcQrCode": "EPC-QR-Code auf Rechnung anzeigen (GiroCode)",
+                "epcQrEurOnly": "EPC-QR-Code ist nur für EUR-Rechnungen verfügbar",
+                "epcQrNeedsIban": "IBAN eingeben, um EPC-QR-Code zu aktivieren"
             },
             "summary": {
                 "heading": "Zusammenfassung",

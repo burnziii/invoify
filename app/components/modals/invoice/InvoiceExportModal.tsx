@@ -78,6 +78,24 @@ const InvoiceExportModal = ({ children }: InvoiceExportModalType) => {
                     >
                         Export as XLSX
                     </BaseButton>
+
+                    <BaseButton
+                        tooltipLabel="Export as XRechnung (EN 16931 compliant)"
+                        variant="outline"
+                        disabled={invoicePdfLoading}
+                        onClick={() => exportInvoiceAs(ExportTypes.XRECHNUNG)}
+                    >
+                        Export as XRechnung
+                    </BaseButton>
+
+                    <BaseButton
+                        tooltipLabel="Export as ZUGFeRD PDF (PDF/A-3 with embedded XML)"
+                        variant="outline"
+                        disabled={invoicePdfLoading}
+                        onClick={() => exportInvoiceAs(ExportTypes.ZUGFERD)}
+                    >
+                        Export as ZUGFeRD
+                    </BaseButton>
                 </div>
             </DialogContent>
         </Dialog>

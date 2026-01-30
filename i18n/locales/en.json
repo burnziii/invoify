@@ -23,6 +23,8 @@
                 "country": "Country",
                 "email": "Email",
                 "phone": "Phone",
+                "vatId": "VAT ID",
+                "buyerReference": "Buyer Reference (Leitweg-ID)",
                 "addCustomInput": "Add Custom Input",
                 "sender": "Sender",
                 "receiver": "Receiver"
@@ -53,7 +55,12 @@
                 "heading": "Payment Information",
                 "bankName": "Bank Name",
                 "accountName": "Account Name",
-                "accountNumber": "Account Number"
+                "accountNumber": "Account Number",
+                "iban": "IBAN",
+                "bic": "BIC",
+                "showEpcQrCode": "Show EPC-QR-Code on invoice (GiroCode)",
+                "epcQrEurOnly": "EPC-QR-Code is only available for EUR invoices",
+                "epcQrNeedsIban": "Enter IBAN to enable EPC-QR-Code"
             },
             "summary": {
                 "heading": "Summary",

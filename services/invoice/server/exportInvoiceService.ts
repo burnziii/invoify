@@ -12,6 +12,9 @@ import XLSX from "xlsx";
 // Helpers
 import { flattenObject } from "@/lib/helpers";
 
+// Services
+import { generateXRechnungResponse } from "./generateXRechnungService";
+
 // Types
 import { ExportTypes } from "@/types";
 
@@ -59,6 +62,9 @@ export async function exportInvoiceService(req: NextRequest) {
                             "attachment; filename=invoice.xml",
                     },
                 });
+            case ExportTypes.XRECHNUNG:
+                // Generate XRechnung compliant XML (EN 16931 / UBL)
+                return generateXRechnungResponse(body);
             // case ExportTypes.XLSX:
             //     const flattenedData = flattenObject(body);
 

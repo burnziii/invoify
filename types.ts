@@ -9,6 +9,11 @@ import { InvoiceSchema, ItemSchema } from "@/lib/schemas";
 
 // Form types
 export type InvoiceType = z.infer<typeof InvoiceSchema>;
+
+// Extended invoice type with EPC-QR-Code for PDF rendering
+export type InvoiceWithEpcQrCode = InvoiceType & {
+    epcQrCodeDataUrl?: string;
+};
 export type ItemType = z.infer<typeof ItemSchema>;
 export type FormType = UseFormReturn<InvoiceType>;
 export type NameType = FieldPath<InvoiceType>;
@@ -55,4 +60,6 @@ export enum ExportTypes {
     XML = "XML",
     XLSX = "XLSX",
     DOCX = "DOCX",
+    XRECHNUNG = "XRECHNUNG",
+    ZUGFERD = "ZUGFERD",
 }

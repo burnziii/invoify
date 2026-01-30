@@ -10,9 +10,9 @@ import { formatNumberWithCommas, isDataUrl } from "@/lib/helpers";
 import { DATE_OPTIONS } from "@/lib/variables";
 
 // Types
-import { InvoiceType } from "@/types";
+import { InvoiceWithEpcQrCode } from "@/types";
 
-const InvoiceTemplate2 = (data: InvoiceType) => {
+const InvoiceTemplate2 = (data: InvoiceWithEpcQrCode) => {
     const { sender, receiver, details } = data;
     return (
         <InvoiceLayout data={data}>
@@ -243,21 +243,45 @@ const InvoiceTemplate2 = (data: InvoiceType) => {
                             {details.paymentTerms}
                         </p>
                     </div>
-                    <div className="my-2">
-                        <span className="font-semibold text-md text-gray-800">
-                            Please send the payment to this address
-                            <p className="text-sm">
-                                Bank: {details.paymentInformation?.bankName}
-                            </p>
-                            <p className="text-sm">
-                                Account name:{" "}
-                                {details.paymentInformation?.accountName}
-                            </p>
-                            <p className="text-sm">
-                                Account no:{" "}
-                                {details.paymentInformation?.accountNumber}
-                            </p>
-                        </span>
+                    <div className="my-2 flex justify-between items-start">
+                        <div>
+                            <span className="font-semibold text-md text-gray-800">
+                                Please send the payment to this address
+                                <p className="text-sm">
+                                    Bank: {details.paymentInformation?.bankName}
+                                </p>
+                                <p className="text-sm">
+                                    Account name:{" "}
+                                    {details.paymentInformation?.accountName}
+                                </p>
+                                <p className="text-sm">
+                                    Account no:{" "}
+                                    {details.paymentInformation?.accountNumber}
+                                </p>
+                                {details.paymentInformation?.iban && (
+                                    <p className="text-sm">
+                                        IBAN: {details.paymentInformation.iban}
+                                    </p>
+                                )}
+                                {details.paymentInformation?.bic && (
+                                    <p className="text-sm">
+                                        BIC: {details.paymentInformation.bic}
+                                    </p>
+                                )}
+                            </span>
+                        </div>
+                        {data.epcQrCodeDataUrl && (
+                            <div className="text-center ml-4">
+                                <img
+                                    src={data.epcQrCodeDataUrl}
+                                    width={100}
+                                    height={100}
+                                    alt="EPC-QR-Code for payment"
+                                    style={{ minWidth: '100px', minHeight: '100px' }}
+                                />
+                                <p className="text-xs text-gray-500 mt-1">Scan to pay</p>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <p className="text-gray-500 text-sm">
